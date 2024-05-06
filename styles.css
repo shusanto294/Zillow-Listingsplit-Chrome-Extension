@@ -1,0 +1,10 @@
+div#listingsplit {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#listingsplit img{
+    width: 40px;
+    margin-right: 15px;
+}
