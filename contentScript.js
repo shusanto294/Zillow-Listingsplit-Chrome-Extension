@@ -16,14 +16,20 @@ function insertHtml(address) {
         success: function(response) {
             console.log(response);
 
-            // Extract commission rate from response data
-            var commissionRate = response.commission_rate;
+            if(response.status == 'found'){
+                // Extract commission rate from response data
+                var commissionRate = response.custom_fields.finances_buyers_agent_commission[0];
+                // Prepare HTML code
+                var htmlCode = '<a id="listingsplit" href="' + response.permalink +'" target="_blank"><img src="https://listingsplit.com/wp-content/uploads/cropped-Site-Icon_A.png">' + commissionRate + '% commission rate</a>';
+                // Append HTML code into the div with class .layout-sticky-content
+                $(".layout-sticky-content").append(htmlCode);
+            }else{
+                var htmlCode = '<div id="listingsplit"><img src="https://listingsplit.com/wp-content/uploads/cropped-Site-Icon_A.png">Not found</div>';
+                // Append HTML code into the div with class .layout-sticky-content
+                $(".layout-sticky-content").append(htmlCode);
+            }
 
-            // Prepare HTML code
-            var htmlCode = '<div id="listingsplit"><img src="https://listingsplit.com/wp-content/uploads/cropped-Site-Icon_A.png">' + commissionRate + '% commission rate</div>';
 
-            // Append HTML code into the div with class .layout-sticky-content
-            $(".layout-sticky-content").append(htmlCode);
         },
         error: function(xhr, status, error) {
             console.error("Error occurred:", error);
